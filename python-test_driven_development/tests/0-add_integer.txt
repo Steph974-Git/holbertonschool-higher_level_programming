@@ -1,0 +1,71 @@
+Import the function:
+    >>> add_integer = __import__('0-add_integer').add_integer
+
+Test normal cases:
+    >>> add_integer(1, 2)
+    3
+    >>> add_integer(100, -2)
+    98
+    >>> add_integer(2)
+    100
+    >>> add_integer(100.3, -2)
+    98
+
+Test error cases:
+    >>> try:
+    ...     add_integer("School", 4)
+    ... except Exception as e:
+    ...     print(e)
+    a must be an integer
+
+    >>> try:
+    ...     add_integer(4, "School")
+    ... except Exception as e:
+    ...     print(e)
+    b must be an integer
+    
+    >>> try:
+    ...     add_integer(None)
+    ... except Exception as e:
+    ...     print(e)
+    a must be an integer
+
+    Test with special float values:
+    >>> try:
+    ...     add_integer(float('inf'), 2)
+    ... except Exception as e:
+    ...     print(e)
+    cannot convert float infinity to integer
+    
+    >>> try:
+    ...     add_integer(float('nan'), 2)
+    ... except Exception as e:
+    ...     print(e)
+    cannot convert float NaN to integer
+
+Test with both arguments as floats:
+    >>> add_integer(1.9, 2.1)
+    3
+
+Test with boolean values (subclass of int):
+    >>> add_integer(True, False)
+    1
+    >>> add_integer(False, True)
+    1
+
+Test with other data types:
+    >>> try:
+    ...     add_integer([1, 2, 3], 4)
+    ... except Exception as e:
+    ...     print(e)
+    a must be an integer
+
+    >>> try:
+    ...     add_integer(4, {'key': 'value'})
+    ... except Exception as e:
+    ...     print(e)
+    b must be an integer
+
+Test with very large numbers:
+    >>> add_integer(10**10, 10**10)
+    20000000000
