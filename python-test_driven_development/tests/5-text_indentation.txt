@@ -1,0 +1,87 @@
+Import the function:
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Basic usage with single punctuation:
+    >>> text_indentation("Hello. World")
+    Hello.
+    <BLANKLINE>
+    World
+
+Test with question mark:
+    >>> text_indentation("How are you? I am fine")
+    How are you?
+    <BLANKLINE>
+    I am fine
+
+Test with colon:
+    >>> text_indentation("Fruits: apples, oranges, bananas")
+    Fruits:
+    <BLANKLINE>
+    apples, oranges, bananas
+
+Test with multiple punctuation marks:
+    >>> text_indentation("Hello. How are you? I hope: you are well.")
+    Hello.
+    <BLANKLINE>
+    How are you?
+    <BLANKLINE>
+    I hope:
+    <BLANKLINE>
+    you are well.
+    <BLANKLINE>
+
+Test with spaces after punctuation:
+    >>> text_indentation("Hello.   How are you?    Fine:   thanks.")
+    Hello.
+    <BLANKLINE>
+    How are you?
+    <BLANKLINE>
+    Fine:
+    <BLANKLINE>
+    thanks.
+    <BLANKLINE>
+
+Test with no special punctuation:
+    >>> text_indentation("Hello World")
+    Hello World
+
+Test with empty string:
+    >>> text_indentation("")
+
+Test with only punctuation:
+    >>> text_indentation(".")
+    .
+    <BLANKLINE>
+
+Test with spaces before punctuation:
+    >>> text_indentation("Hello . World")
+    Hello .
+    <BLANKLINE>
+    World
+
+Test with newlines in text:
+    >>> text_indentation("Hello.\nWorld.")
+    Hello.
+    <BLANKLINE>
+    <BLANKLINE>
+    World.
+    <BLANKLINE>
+
+Error cases:
+    >>> text_indentation(123)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+    
+    >>> text_indentation(None)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+    
+    >>> text_indentation(["Hello", "World"])
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Test with missing argument:
+    >>> text_indentation()
+    Traceback (most recent call last):
+    TypeError: text_indentation() missing 1 required positional argument: 'text'
+    
