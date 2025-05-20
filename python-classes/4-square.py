@@ -21,7 +21,8 @@ class Square:
 
         Note:
             self fait référence à l'instance en cours de création
-            self.size utilise le setter défini plus bas (pas d'affectation directe)
+            self.size utilise le setter défini plus bas
+            (pas d'affectation directe)
         """
         self.size = size  # Utilise le setter de la propriété size
 
@@ -56,8 +57,8 @@ class Square:
         """
         Setter (mutateur) - permet de modifier l'attribut avec validation.
 
-        Le décorateur @size.setter définit le comportement lors de l'affectation
-        (square.size = 5)
+        Le décorateur @size.setter définit le comportement lors de
+        l'affectation (square.size = 5)
 
         Args:
             value (int): Nouvelle taille à affecter

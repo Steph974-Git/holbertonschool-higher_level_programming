@@ -32,7 +32,8 @@ class Square:
             - Chaque instance aura son propre attribut __size
             - L'utilisation de '__' crée un attribut privé (encapsulation)
         """
-        # Attribut privé: l'underscore double (__) rend l'attribut moins accessible
+        # Attribut privé: l'underscore double (__) rend l'attribut moins
+        # accessible
         # depuis l'extérieur de la classe, c'est un principe d'encapsulation
         self.__size = size  # 'self' fait référence à l'instance elle-même
 

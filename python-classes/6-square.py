@@ -28,7 +28,7 @@ class Square:
         """
         # Ces affectations appellent les setters définis plus bas
         self.size = size  # Équivalent à: self.__size = size après validation
-        self.position = position  # Équivalent à: self.__position = position après validation
+        self.position = position
 
     def area(self):
         """
@@ -59,7 +59,8 @@ class Square:
     @property
     def position(self):
         """
-        Propriété getter - fournit accès en lecture à l'attribut privé __position.
+        Propriété getter - fournit accès en lecture à l'attribut privé
+        __position.
 
         Returns:
             tuple: La position actuelle pour l'affichage du carré
