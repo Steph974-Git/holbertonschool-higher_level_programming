@@ -43,3 +43,9 @@ class Rectangle:
         
         row = "#" * self.__width + "\n"
         return row * (self.__height - 1) + "#" * self.__width
+
+    def __repr__(self):
+        return "Rectangle({}, {})".format(self.width, self.height)
+
+    def __del__(self):
+        print("Bye rectangle...")
