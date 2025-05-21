@@ -2,22 +2,21 @@
 
 class Rectangle:
     number_of_instances = 0
-    print_symbol = 0
-    
+    print_symbol = "#"
+
     def __init__(self, width=0, height=0):
         self.width = width
         self.height = height
         Rectangle.number_of_instances += 1
-        Rectangle.print_symbol
 
     @property
     def width(self):
         return self.__width
-    
+
     @property
     def height(self):
         return self.__height
-    
+
     @height.setter
     def height(self, value):
         if not isinstance(value, int):
@@ -36,7 +35,7 @@ class Rectangle:
 
     def area(self):
         return self.__width * self.__height
-    
+
     def perimeter(self):
         if self.__width == 0 or self.__height == 0:
             return 0
@@ -45,13 +44,14 @@ class Rectangle:
     def __str__(self):
         if self.__width == 0 or self.__height == 0:
             return ""
-        
-        row = "#" * self.__width + "\n"
-        return row * (self.__height - 1) + "#" * self.__width
+
+        row = str(self.print_symbol) * self.__width + "\n"
+        return row * (self.__height - 1) + \
+            str(self.print_symbol) * self.__width
 
     def __repr__(self):
         return "Rectangle({}, {})".format(self.width, self.height)
-        
+
     def __del__(self):
         print("Bye rectangle...")
         Rectangle.number_of_instances -= 1
