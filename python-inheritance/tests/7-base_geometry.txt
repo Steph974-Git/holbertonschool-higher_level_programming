@@ -91,3 +91,33 @@ Test with other edge cases:
     >>> bg.integer_validator("empty_tuple", ())
     Traceback (most recent call last):
     TypeError: empty_tuple must be an integer
+
+Test with boolean values specifically:
+    >>> bg.integer_validator("valid_false", False)
+    Traceback (most recent call last):
+    TypeError: valid_false must be an integer
+
+Test with set data type:
+    >>> bg.integer_validator("set", {1, 2, 3})
+    Traceback (most recent call last):
+    TypeError: set must be an integer
+
+Test with the object itself:
+    >>> bg.integer_validator("self", bg)
+    Traceback (most recent call last):
+    TypeError: self must be an integer
+    
+Test with float infinity and NaN:
+    >>> import math
+    >>> bg.integer_validator("infinity", float('inf'))
+    Traceback (most recent call last):
+    TypeError: infinity must be an integer
+    
+    >>> bg.integer_validator("nan", float('nan'))
+    Traceback (most recent call last):
+    TypeError: nan must be an integer
+
+Test with numeric types that aren't int:
+    >>> bg.integer_validator("complex", complex(1, 1))
+    Traceback (most recent call last):
+    TypeError: complex must be an integer
