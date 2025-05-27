@@ -7,6 +7,8 @@ through a common interface, illustrating Python's duck typing principles.
 """
 
 from abc import ABC, abstractmethod
+import math
+
 
 class Shape(ABC):
     """
@@ -51,7 +53,7 @@ class Circle(Shape):
         Args:
             radius (float): The radius of the circle
         """
-        self.__radius = radius
+        self.__radius = abs(radius)
 
     def area(self):
         """
@@ -60,7 +62,7 @@ class Circle(Shape):
         Returns:
             float: The area using the formula πr²
         """
-        return 3.141592653593 * self.__radius ** 2
+        return math.pi * self.__radius ** 2
 
     def perimeter(self):
         """
@@ -69,7 +71,7 @@ class Circle(Shape):
         Returns:
             float: The perimeter using the formula 2πr
         """
-        return 2 * 3.141592653593 * self.__radius
+        return 2 * math.pi * self.__radius
 
 
 class Rectangle(Shape):
