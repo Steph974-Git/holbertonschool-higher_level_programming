@@ -127,15 +127,15 @@ def shape_info(obj):
 
 class Triangle:
     """
-    Class representing a triangle shape.
+    Class that does NOT inherit from Shape.
 
-    This class does NOT inherit from Shape but still works with shape_info()
-    because it implements area() and perimeter() - pure duck typing.
+    This class demonstrates pure duck typing by implementing the required
+    methods without being part of the Shape inheritance hierarchy.
     """
 
     def __init__(self, a, b, c):
         """
-        Initialize a triangle with three sides.
+        Initialize a triangle with the length of its three sides.
 
         Args:
             a (float): Length of first side
@@ -148,7 +148,7 @@ class Triangle:
 
     def area(self):
         """
-        Calculate the area of the triangle using Heron's formula.
+        Calculate the area using Heron's formula.
 
         Returns:
             float: The area of the triangle
@@ -163,24 +163,29 @@ class Triangle:
         Calculate the perimeter of the triangle.
 
         Returns:
-            float: The sum of all three sides
+            float: The sum of all sides
         """
         return self.a + self.b + self.c
 
 
-# Testing code
+# Test code to demonstrate duck typing
 if __name__ == "__main__":
-    # Create shape instances
+    # Create instances
     circle = Circle(5)
     rectangle = Rectangle(4, 6)
-    triangle = Triangle(3, 4, 5)  # A 3-4-5 right triangle
+    triangle = Triangle(3, 4, 5)  # Triangle does NOT inherit from Shape
 
+    # Test with Circle (inherits from Shape)
     print("Circle information:")
     shape_info(circle)
 
+    # Test with Rectangle (inherits from Shape)
     print("\nRectangle information:")
     shape_info(rectangle)
 
+    # Test with Triangle (does NOT inherit from Shape - pure duck typing)
     print("\nTriangle information:")
-    # This works even though Triangle doesn't inherit from Shape!
     shape_info(triangle)
+
+    print("\nThis demonstrates duck typing: Triangle works with shape_info()")
+    print("even though it doesn't inherit from Shape!")
