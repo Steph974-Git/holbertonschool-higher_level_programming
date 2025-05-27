@@ -123,3 +123,64 @@ def shape_info(obj):
     """
     print("Area: {}".format(obj.area()))
     print("Perimeter: {}".format(obj.perimeter()))
+
+
+class Triangle:
+    """
+    Class representing a triangle shape.
+
+    This class does NOT inherit from Shape but still works with shape_info()
+    because it implements area() and perimeter() - pure duck typing.
+    """
+
+    def __init__(self, a, b, c):
+        """
+        Initialize a triangle with three sides.
+
+        Args:
+            a (float): Length of first side
+            b (float): Length of second side
+            c (float): Length of third side
+        """
+        self.a = a
+        self.b = b
+        self.c = c
+
+    def area(self):
+        """
+        Calculate the area of the triangle using Heron's formula.
+
+        Returns:
+            float: The area of the triangle
+        """
+        # Semi-perimeter
+        s = (self.a + self.b + self.c) / 2
+        # Heron's formula
+        return math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))
+
+    def perimeter(self):
+        """
+        Calculate the perimeter of the triangle.
+
+        Returns:
+            float: The sum of all three sides
+        """
+        return self.a + self.b + self.c
+
+
+# Testing code
+if __name__ == "__main__":
+    # Create shape instances
+    circle = Circle(5)
+    rectangle = Rectangle(4, 6)
+    triangle = Triangle(3, 4, 5)  # A 3-4-5 right triangle
+
+    print("Circle information:")
+    shape_info(circle)
+
+    print("\nRectangle information:")
+    shape_info(rectangle)
+
+    print("\nTriangle information:")
+    # This works even though Triangle doesn't inherit from Shape!
+    shape_info(triangle)
