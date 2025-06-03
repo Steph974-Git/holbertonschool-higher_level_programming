@@ -31,8 +31,6 @@ def convert_csv_to_json(filename):
             json.dump(data, json_f)
         return True
     except FileNotFoundError:
-        # Specifically handle the case where the CSV file isn't found
         return False
     except Exception:
-        # Handle any other exceptions that might occur
         return False
