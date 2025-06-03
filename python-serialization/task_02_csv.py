@@ -23,12 +23,16 @@ def convert_csv_to_json(filename):
     Returns:
         bool: True if conversion was successful, False otherwise
     """
-    with open(filename, 'r', encoding="utf-8") as f:
-        data = list(csv.DictReader(f))
-
     try:
+        with open(filename, 'r', encoding="utf-8") as f:
+            data = list(csv.DictReader(f))
+
         with open('data.json', 'w', encoding='utf-8') as json_f:
             json.dump(data, json_f)
         return True
-    except BaseException:
+    except FileNotFoundError:
+        # Specifically handle the case where the CSV file isn't found
+        return False
+    except Exception:
+        # Handle any other exceptions that might occur
         return False
