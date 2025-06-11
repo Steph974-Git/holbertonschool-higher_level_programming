@@ -8,6 +8,7 @@ un serveur HTTP léger qui répond à différentes routes avec des données JSON
 """
 
 import json
+import socketserver
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
@@ -67,18 +68,10 @@ class Server(BaseHTTPRequestHandler):
             self.wfile.write(error_json.encode())
 
 
-def run(server_class=HTTPServer, handler_class=Server):
-    """Démarre le serveur HTTP avec les paramètres spécifiés.
+PORT = 8000
 
-    Args:
-        server_class: Classe du serveur à utiliser (défaut: HTTPServer)
-        handler_class: Classe gérant les requêtes (défaut: Server)
-    """
-    server_address = ('', 8000)
-    httpd = server_class(server_address, handler_class)
-    print("Serveur démarré sur le port 8000...")
+Handler = Server
+
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print("serving at port", PORT)
     httpd.serve_forever()
-
-
-if __name__ == "__main__":
-    run()
