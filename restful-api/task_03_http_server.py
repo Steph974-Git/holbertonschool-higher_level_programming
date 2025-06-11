@@ -47,7 +47,7 @@ class Server(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'text/plain')
             self.end_headers()
-            self.wfile.write(b"Endpoint not found")
+            self.wfile.write(b"status: OK")
 
         elif self.path == "/info":
             self.send_response(200)
