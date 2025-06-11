@@ -8,7 +8,12 @@ app = Flask(__name__)
 def home():
     return "<p>Welcome to the Flask API!</p>"
 
-@app.route("/")
+dict_users = {}
+@app.route("/data")
+def data():
+    return jsonify(list(dict_users.keys()))
+
+@app.route("/status")
 
 
 if __name__ == "__main__":
