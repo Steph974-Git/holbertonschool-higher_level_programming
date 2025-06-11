@@ -8,11 +8,10 @@ un serveur HTTP léger qui répond à différentes routes avec des données JSON
 """
 
 import json
-import http.server
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
-class Server(http.server.BaseHTTPRequestHandler):
+class Server(BaseHTTPRequestHandler):
     """Classe gérant les requêtes HTTP pour notre API simple.
 
     Cette classe étend BaseHTTPRequestHandler pour implémenter les
