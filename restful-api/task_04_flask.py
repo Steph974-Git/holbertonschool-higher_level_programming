@@ -46,7 +46,7 @@ def get_status():
     Vérifie le statut de l'API.
 
     Returns:
-        Response: JSON indiquant que l'API est fonctionnelle
+        Response: Message indiquant que l'API est fonctionnelle
     """
     return "OK"
 
