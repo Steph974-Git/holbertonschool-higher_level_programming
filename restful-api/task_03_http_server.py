@@ -9,10 +9,10 @@ un serveur HTTP léger qui répond à différentes routes avec des données JSON
 
 import json
 import socketserver
-from http.server import BaseHTTPRequestHandler
+import http.server
 
 
-class Server(BaseHTTPRequestHandler):
+class Server(http.server.BaseHTTPRequestHandler):
     """Classe gérant les requêtes HTTP pour notre API simple.
 
     Cette classe étend BaseHTTPRequestHandler pour implémenter les
@@ -31,7 +31,7 @@ class Server(BaseHTTPRequestHandler):
         """
         if self.path == "/data":
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-type', 'application/json')
             self.end_headers()
             json_data = json.dumps({"name": "John", "age": 30,
                                    "city": "New York"})
@@ -39,19 +39,19 @@ class Server(BaseHTTPRequestHandler):
 
         elif self.path == "/":
             self.send_response(200)
-            self.send_header('Content-Type', 'text/plain')
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
 
         elif self.path == "/status":
             self.send_response(200)
-            self.send_header('Content-Type', 'text/plain')
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b"OK")
 
         elif self.path == "/info":
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-type', 'application/json')
             self.end_headers()
             json_info = json.dumps({
                 "version": "1.0",
@@ -61,9 +61,9 @@ class Server(BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.send_header('Content-Type', 'text/plain')
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write(b"error: Endpoint not found")
+            self.wfile.write(b"Endpoint not found")
 
 
 PORT = 8000
