@@ -9,7 +9,7 @@ un serveur HTTP léger qui répond à différentes routes avec des données JSON
 
 import json
 import socketserver
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler
 
 
 class Server(BaseHTTPRequestHandler):
