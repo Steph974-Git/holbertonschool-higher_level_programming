@@ -39,16 +39,15 @@ class Server(BaseHTTPRequestHandler):
 
         elif self.path == "/":
             self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Type', 'text/plain')
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
 
         elif self.path == "/status":
             self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Type', 'text/plain')
             self.end_headers()
-            status_json = json.dumps({"status": "OK"})
-            self.wfile.write(status_json.encode())
+            self.wfile.write(b"Endpoint not found")
 
         elif self.path == "/info":
             self.send_response(200)
@@ -62,10 +61,9 @@ class Server(BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Type', 'text/plain')
             self.end_headers()
-            error_json = json.dumps({"error": "Endpoint not found"})
-            self.wfile.write(error_json.encode())
+            self.wfile.write(b"error: Endpoint not found")
 
 
 PORT = 8000
