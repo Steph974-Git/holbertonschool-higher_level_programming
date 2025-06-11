@@ -47,7 +47,8 @@ class Server(http.server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
-            self.wfile.write(b'{"status": "OK"}')
+            status_json = json.dumps({"status": "OK"})
+            self.wfile.write(status_json.encode())
 
         elif self.path == "/info":
             self.send_response(200)
@@ -61,7 +62,8 @@ class Server(http.server.BaseHTTPRequestHandler):
             self.send_response(404)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
-            self.wfile.write(b"Endpoint not found")
+            error_json = json.dumps({"error": "Endpoint not found"})
+            self.wfile.write(error_json.encode())
 
 
 def run(server_class=HTTPServer, handler_class=Server):
