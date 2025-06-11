@@ -48,7 +48,7 @@ def get_status():
     Returns:
         Response: JSON indiquant que l'API est fonctionnelle
     """
-    return jsonify({"status": "OK"})
+    return "OK"
 
 
 @app.route("/users/<username>")
