@@ -54,8 +54,10 @@ class Server(http.server.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
-            json_info = json.dumps({"version": "1.0", "description":
-                                    "A simple API built with http.server"})
+            json_info = json.dumps({
+                "version": "1.0",
+                "description": "A simple API built with http.server"
+            })
             self.wfile.write(json_info.encode())
 
         else:
