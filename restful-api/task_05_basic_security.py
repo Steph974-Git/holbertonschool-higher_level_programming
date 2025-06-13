@@ -20,17 +20,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 # Clé secrète utilisée pour signer les tokens JWT
-app.config['SECRET_KEY'] = 'secret key here'
+app.config['JWT_SECRET_KEY'] = 'secret key here'
 jwt = JWTManager(app)
 auth = HTTPBasicAuth()
 
 # Dictionnaire des utilisateurs avec mots de passe hashés et rôles
 users = {
-    "john": {
+    "admin1": {
         "password": generate_password_hash("hello"),
         "role": "admin"
     },
-    "susan": {
+    "user1": {
         "password": generate_password_hash("bye"),
         "role": "user"
     }
