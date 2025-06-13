@@ -55,17 +55,6 @@ def verify_password(username, password):
     return None
 
 
-@app.route("/status")
-def get_status():
-    """
-    Route non protégée pour vérifier le statut de l'API.
-
-    Returns:
-        str: Message "OK" indiquant que l'API fonctionne
-    """
-    return "OK"
-
-
 @app.route("/basic-protected", methods=["GET"])
 @auth.login_required
 def basic_protected():
@@ -77,6 +66,9 @@ def basic_protected():
     Returns:
         str: Message confirmant l'accès avec le nom d'utilisateur
     """
+    current_user = auth.current_user()
+    if current_user not in users:
+        return jsonify({"error": "Unauthorized"}), 401
     return "Basic Auth: Access Granted"
 
 
@@ -110,7 +102,7 @@ def login():
                 "role": users[username]["role"]})
         return jsonify({"access_token": access_token})
     else:
-        return jsonify({"error": "Unauthorized"}), 401
+        return jsonify({"error": "credentials is not valid"}), 401
 
 
 @app.route("/jwt-protected", methods=["GET"])
