@@ -72,68 +72,6 @@ def basic_protected():
     return "Basic Auth: Access Granted"
 
 
-@app.route("/login", methods=["POST"])
-def login():
-    """
-    Route pour se connecter et obtenir un token JWT.
-
-    Attend un JSON contenant username et password, vérifie les identifiants
-    et retourne un JWT token si valides.
-
-    Returns:
-        Response: Token JWT si succès, message d'erreur sinon
-    """
-    data = request.get_json()
-    if not data:
-        return jsonify({"error": "Missing JSON data"}), 400
-
-    username = data.get("username")
-    password = data.get("password")
-
-    if not username or not password:
-        return jsonify({"error": "Username and password are required"}), 400
-
-    if username in users and check_password_hash(
-            users[username]["password"], password):
-        # Création d'un token avec l'identité de l'utilisateur et son rôle
-        access_token = create_access_token(
-            identity=username, additional_claims={
-                "role": users[username]["role"]})
-        return jsonify({"access_token": access_token})
-    else:
-        return jsonify({"error": "Unauthorized"}), 401
-
-
-@app.route("/jwt-protected", methods=["GET"])
-@jwt_required()
-def jwt_protected():
-    """
-    Route protégée par authentification JWT.
-
-    Cette route nécessite un token JWT valide.
-
-    Returns:
-        Response: Message confirmant l'accès autorisé
-    """
-    return "JWT Auth: Access Granted"
-
-
-@app.route("/admin-only", methods=["GET"])
-@jwt_required()
-def admin_only():
-    """Route accessible uniquement aux administrateurs"""
-    current_user = get_jwt()
-
-    # Validation plus robuste de l'identité
-    if not current_user or not isinstance(current_user, dict):
-        return jsonify({"error": "Invalid token"}), 401
-
-    if current_user.get("role") != "admin":
-        return jsonify({"error": "Admin access required"}), 403
-
-    return "Admin Access: Granted"
-
-
 @jwt.unauthorized_loader
 def handle_unauthorized_error(err):
     """
@@ -204,6 +142,68 @@ def handle_needs_fresh_token_error(err):
         Response: Message d'erreur avec code 401
     """
     return jsonify({"error": "Fresh token required"}), 401
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    """
+    Route pour se connecter et obtenir un token JWT.
+
+    Attend un JSON contenant username et password, vérifie les identifiants
+    et retourne un JWT token si valides.
+
+    Returns:
+        Response: Token JWT si succès, message d'erreur sinon
+    """
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Missing JSON data"}), 400
+
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"error": "Username and password are required"}), 400
+
+    if username in users and check_password_hash(
+            users[username]["password"], password):
+        # Création d'un token avec l'identité de l'utilisateur et son rôle
+        access_token = create_access_token(
+            identity=username, additional_claims={
+                "role": users[username]["role"]})
+        return jsonify({"access_token": access_token})
+    else:
+        return jsonify({"error": "Unauthorized"}), 401
+
+
+@app.route("/jwt-protected", methods=["GET"])
+@jwt_required()
+def jwt_protected():
+    """
+    Route protégée par authentification JWT.
+
+    Cette route nécessite un token JWT valide.
+
+    Returns:
+        Response: Message confirmant l'accès autorisé
+    """
+    return "JWT Auth: Access Granted"
+
+
+@app.route("/admin-only", methods=["GET"])
+@jwt_required()
+def admin_only():
+    """Route accessible uniquement aux administrateurs"""
+    current_user = get_jwt()
+
+    # Validation plus robuste de l'identité
+    if not current_user or not isinstance(current_user, dict):
+        return jsonify({"error": "Invalid token"}), 401
+
+    if current_user.get("role") != "admin":
+        return jsonify({"error": "Admin access required"}), 403
+
+    return "Admin Access: Granted"
 
 
 if __name__ == "__main__":
