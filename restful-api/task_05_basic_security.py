@@ -168,10 +168,11 @@ def login():
     if username in users and check_password_hash(
             users[username]["password"], password):
         # Création d'un token avec l'identité de l'utilisateur et son rôle
+        user_role = {"role": users[username]["role"]}
         access_token = create_access_token(
-            identity=username, additional_claims={
-                "role": users[username]["role"]})
-        return jsonify({"access_token": access_token})
+            identity=username,
+            additional_claims=user_role)
+        return jsonify(access_token=access_token)
     else:
         return jsonify({"error": "Unauthorized"}), 401
 
@@ -194,13 +195,8 @@ def jwt_protected():
 @jwt_required()
 def admin_only():
     """Route accessible uniquement aux administrateurs"""
-    current_user = get_jwt()
-
-    # Validation plus robuste de l'identité
-    if not current_user or not isinstance(current_user, dict):
-        return jsonify({"error": "Invalid token"}), 401
-
-    if current_user.get("role") != "admin":
+    current_user = get_jwt_identity()
+    if users[current_user]["role"] != "admin":
         return jsonify({"error": "Admin access required"}), 403
 
     return "Admin Access: Granted"
