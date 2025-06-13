@@ -109,8 +109,8 @@ def login():
                 "username": username,
                 "role": users[username]["role"]})
         return jsonify({"access_token": access_token})
-
-    return jsonify({"error": "Unauthorized"}), 401
+    else:
+        return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.route("/jwt-protected", methods=["GET"])
@@ -124,7 +124,7 @@ def jwt_protected():
     Returns:
         Response: Message confirmant l'accès autorisé
     """
-    return jsonify({"message": "JWT Auth: Access Granted"}), 200
+    return jsonify({"JWT Auth: Access Granted"}), 200
 
 
 @app.route("/admin-only", methods=["GET"])
@@ -140,7 +140,7 @@ def admin_only():
     if current_user.get("role") != "admin":
         return jsonify({"error": "Admin access required"}), 403
 
-    return jsonify({"message": "Admin Access: Granted"})
+    return jsonify({"Admin Access: Granted"})
 
 
 @jwt.unauthorized_loader
