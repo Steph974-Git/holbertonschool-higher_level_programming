@@ -102,7 +102,7 @@ def login():
                 "role": users[username]["role"]})
         return jsonify({"access_token": access_token})
     else:
-        return jsonify({"error": "credentials is not valid"}), 401
+        return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.route("/jwt-protected", methods=["GET"])
@@ -116,7 +116,7 @@ def jwt_protected():
     Returns:
         Response: Message confirmant l'accès autorisé
     """
-    return jsonify({"JWT Auth: Access Granted"}), 200
+    return jsonify({"message": "JWT Auth: Access Granted"}), 200
 
 
 @app.route("/admin-only", methods=["GET"])
@@ -132,7 +132,7 @@ def admin_only():
     if current_user.get("role") != "admin":
         return jsonify({"error": "Admin access required"}), 403
 
-    return jsonify({"Admin Access: Granted"})
+    return "Admin Access: Granted"
 
 
 @jwt.unauthorized_loader
@@ -164,7 +164,7 @@ def handle_invalid_token_error(err):
 
 
 @jwt.expired_token_loader
-def handle_expired_token_error(first, second):
+def handle_expired_token_error(err):
     """
     Gestionnaire pour token JWT expiré.
 
@@ -179,7 +179,7 @@ def handle_expired_token_error(first, second):
 
 
 @jwt.revoked_token_loader
-def handle_revoked_token_error(first, second):
+def handle_revoked_token_error(err):
     """
     Gestionnaire pour token JWT révoqué.
 
