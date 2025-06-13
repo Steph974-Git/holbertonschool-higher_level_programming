@@ -14,13 +14,13 @@ from flask import Flask, request, jsonify
 from flask_httpauth import HTTPBasicAuth
 from flask_jwt_extended import (
     JWTManager, create_access_token,
-    jwt_required, get_jwt_identity
+    jwt_required, get_jwt_identity, get_jwt
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 # Clé secrète utilisée pour signer les tokens JWT
-app.config["JWT_SECRET_KEY"] = 'secret key here'
+app.config['SECRET_KEY'] = 'secret key here'
 jwt = JWTManager(app)
 auth = HTTPBasicAuth()
 
@@ -97,8 +97,7 @@ def login():
             users[username]["password"], password):
         # Création d'un token avec l'identité de l'utilisateur et son rôle
         access_token = create_access_token(
-            identity={
-                "username": username,
+            identity=username, additional_claims={
                 "role": users[username]["role"]})
         return jsonify({"access_token": access_token})
     else:
@@ -116,14 +115,14 @@ def jwt_protected():
     Returns:
         Response: Message confirmant l'accès autorisé
     """
-    return jsonify({"message": "JWT Auth: Access Granted"}), 200
+    return "JWT Auth: Access Granted"
 
 
 @app.route("/admin-only", methods=["GET"])
 @jwt_required()
 def admin_only():
     """Route accessible uniquement aux administrateurs"""
-    current_user = get_jwt_identity()
+    current_user = get_jwt()
 
     # Validation plus robuste de l'identité
     if not current_user or not isinstance(current_user, dict):
@@ -164,7 +163,7 @@ def handle_invalid_token_error(err):
 
 
 @jwt.expired_token_loader
-def handle_expired_token_error(err):
+def handle_expired_token_error(jwt_header, jwt_payload):
     """
     Gestionnaire pour token JWT expiré.
 
