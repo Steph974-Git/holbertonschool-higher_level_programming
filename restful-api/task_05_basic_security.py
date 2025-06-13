@@ -27,11 +27,13 @@ auth = HTTPBasicAuth()
 # Dictionnaire des utilisateurs avec mots de passe hashés et rôles
 users = {
     "admin1": {
-        "password": generate_password_hash("hello"),
+        "username": "admin1",
+        "password": generate_password_hash("password"),
         "role": "admin"
     },
     "user1": {
-        "password": generate_password_hash("bye"),
+        "username": "user1",
+        "password": generate_password_hash("password"),
         "role": "user"
     }
 }
@@ -101,7 +103,7 @@ def handle_invalid_token_error(err):
 
 
 @jwt.expired_token_loader
-def handle_expired_token_error(jwt_header, jwt_payload):
+def handle_expired_token_error(err):
     """
     Gestionnaire pour token JWT expiré.
 
@@ -174,7 +176,7 @@ def login():
             additional_claims=user_role)
         return jsonify(access_token=access_token)
     else:
-        return jsonify({"error": "Unauthorized"}), 401
+        return jsonify({"error": "Invalid credentials"}), 401
 
 
 @app.route("/jwt-protected", methods=["GET"])
@@ -196,7 +198,7 @@ def jwt_protected():
 def admin_only():
     """Route accessible uniquement aux administrateurs"""
     current_user = get_jwt_identity()
-    if users[current_user]["role"] != "admin":
+    if current_user not in users or users[current_user]["role"] != "admin":
         return jsonify({"error": "Admin access required"}), 403
 
     return "Admin Access: Granted"
