@@ -30,7 +30,7 @@ if __name__ == "__main__":
     query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(
         search_name)
     cursor.execute(query)
-    
+
     # Récupération et affichage des résultats
     results = cursor.fetchall()
     for row in results:

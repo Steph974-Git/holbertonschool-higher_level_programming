@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     # Création du curseur et exécution de la requête SQL
     cursor = db.cursor()
-    
+
     # Utilisation de paramètres pour éviter les injections SQL
     query = """
         SELECT cities.name
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         ORDER BY cities.id ASC
     """
     cursor.execute(query, (search_name,))
-    
+
     # Récupération et formatage des résultats
     results = cursor.fetchall()
     cities = [row[0] for row in results]

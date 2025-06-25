@@ -2,7 +2,8 @@
 """
 Script qui filtre les états d'une base de données par nom de manière sécurisée.
 
-Ce script accepte un nom d'état comme argument et affiche les états correspondants
+Ce script accepte un nom d'état comme argument et
+affiche les états correspondants
 tout en se protégeant contre les injections SQL.
 """
 import MySQLdb

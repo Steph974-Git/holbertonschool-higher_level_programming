@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # Création du curseur et exécution de la requête
     cursor = db.cursor()
     cursor.execute("SELECT * FROM states ORDER BY id ASC")
-    
+
     # Récupération et affichage des résultats
     results = cursor.fetchall()
     for row in results:
