@@ -6,7 +6,7 @@ Ce module contient la classe State qui représente la table states
 d'une base de données MySQL.
 """
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import declarative_base  # Nouvelle localisation de l'import
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
