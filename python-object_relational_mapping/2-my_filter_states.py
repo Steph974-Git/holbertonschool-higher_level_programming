@@ -27,8 +27,8 @@ if __name__ == "__main__":
 
     # Création du curseur et exécution de la requête
     cursor = db.cursor()
-    query = "SELECT * FROM states WHERE BINARY name = '{}' ORDER BY id ASC".format(
-        search_name)
+    query = "SELECT * FROM states" \
+            " WHERE BINARY name = '{}' ORDER BY id ASC".format(search_name)
     cursor.execute(query)
 
     # Récupération et affichage des résultats
