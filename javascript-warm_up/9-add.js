@@ -10,7 +10,7 @@ function add(a, b) {
 
 
 if (isNaN(a) || isNaN(b)) {
-    console.log("NaN");
+    console.log('NaN');
 } else {
     console.log(result);
 }
