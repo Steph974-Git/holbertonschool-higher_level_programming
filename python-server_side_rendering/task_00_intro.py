@@ -2,7 +2,6 @@
 
 def generate_invitations(template, attendees):
 
-
     if not isinstance(template, str) or not isinstance(attendees, list):
         print("Invalid types: template must be a string and attendees must be a list.")
         return None
