@@ -4,20 +4,20 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+def read_json():
+    with open('products.json') as f:
+        return json.load(f)
+
+def read_csv():
+    with open('products.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        return [row for row in reader]
+
 @app.route('/products')
 def products():
     source = request.args.get('source')
     product_id = request.args.get('id')
     error = None
-
-    def read_json():
-        with open('products.json') as f:
-            return json.load(f)
-
-    def read_csv():
-        with open('products.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            return [row for row in reader]
 
     if source == 'json':
         products = read_json()
@@ -34,3 +34,5 @@ def products():
 
     return render_template('product_display.html', products=products, error=error)
 
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
