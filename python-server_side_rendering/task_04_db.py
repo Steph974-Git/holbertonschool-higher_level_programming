@@ -15,14 +15,18 @@ def read_csv():
         return [row for row in reader]
 
 def read_sql():
-    connection = sqlite3.connect("products.db")
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM products")
-    columns = [description[0] for description in cursor.description]
-    rows = cursor.fetchall()
-    products = [dict(zip(columns, row)) for row in rows]
-    connection.close()
-    return products
+    try:
+        connection = sqlite3.connect("products.db")
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM products")
+        columns = [description[0] for description in cursor.description]
+        rows = cursor.fetchall()
+        products = [dict(zip(columns, row)) for row in rows]
+        connection.close()
+        return products
+    except Exception as e:
+        print(f"Error reading from database: {e}")
+        return []
 
 @app.route('/products')
 def products():
